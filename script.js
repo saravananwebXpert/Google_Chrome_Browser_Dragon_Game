@@ -1,17 +1,19 @@
-var character = document.getElementById("character");
-var block = document.getElementById("block");
+const character = document.getElementById("character");
+const block = document.getElementById("block");
 
 function jump() {
-  character.classList.add("animate");
-  setTimeout(() => {
-    character.classList.remove("animate");
-  }, 3000);
+  if (!character.classList.contains("animate")) {
+    character.classList.add("animate");
+    setTimeout(() => {
+      character.classList.remove("animate");
+    }, 2000);
+  }
 }
-var checkDead = setInterval(() => {
-  var characterPosition = parseInt(
+const checkDead = setInterval(() => {
+  const characterPosition = parseInt(
     window.getComputedStyle(character).getPropertyValue("top")
   );
-  var blockPosition = parseInt(
+  const blockPosition = parseInt(
     window.getComputedStyle(block).getPropertyValue("left")
   );
 
@@ -31,11 +33,16 @@ function playAgain() {
 }
 function stopGame() {
   block.style.animation = "none";
+  block.style.display = "block";
 }
 
 document.getElementById("close").addEventListener("click", () => {
   document.getElementById("start").style.display = "block";
   document.getElementById("stop").style.display = "block";
-
   document.getElementById("gameOver").style.display = "none";
+});
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Space") {
+    jump();
+  }
 });
